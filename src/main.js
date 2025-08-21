@@ -12,7 +12,15 @@ form.addEventListener('submit', function (event) {
   event.preventDefault();
 
   const query = form.elements['search-text'].value.trim();
-  if (!query) return;
+
+  // Якщо інпут порожній — показуємо тост
+  if (!query) {
+    iziToast.error({
+      message: 'Please enter a search query!',
+      position: 'topLeft',
+    });
+    return;
+  }
 
   clearGallery(gallery);
   showLoader();
@@ -24,18 +32,17 @@ form.addEventListener('submit', function (event) {
         iziToast.warning({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
-          position: 'topRight',
+          position: 'topLeft',
         });
         return;
       }
       renderImages(data.hits, gallery);
     })
     .catch(function () {
-      hideLoader();
-      loader.classList.add('is-hidden');
+      hideLoader(); // достатньо цього, без loader.classList
       iziToast.error({
-        message: 'Error!',
-        position: 'topRight',
+        message: 'Something went wrong. Please try again later!',
+        position: 'topLeft',
       });
     });
 });
