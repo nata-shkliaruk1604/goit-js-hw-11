@@ -13,7 +13,6 @@ form.addEventListener('submit', function (event) {
 
   const query = form.elements['search-text'].value.trim();
 
-  // Якщо інпут порожній — показуємо тост
   if (!query) {
     iziToast.error({
       message: 'Please enter a search query!',
@@ -39,7 +38,7 @@ form.addEventListener('submit', function (event) {
       renderImages(data.hits, gallery);
     })
     .catch(function () {
-      hideLoader(); // достатньо цього, без loader.classList
+      hideLoader();
       iziToast.error({
         message: 'Something went wrong. Please try again later!',
         position: 'topLeft',
